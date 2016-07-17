@@ -1,5 +1,6 @@
 ---
 - hosts: rails
+  sudo: yes
   vars:
     dest: '{{ ansible_env.HOME }}/{{ project }}'
     colon: ':'
@@ -9,6 +10,8 @@
       SECRET_KEY_BASE: '{{ secret_key_base }}'
   tasks:
     - include: tasks/git.yml
+    - include: tasks/ruby.yml
+#     - include: tasks/anyenv.yml
     - include: tasks/bundle.yml
     - include: tasks/nginx.yml
     - include: tasks/unicorn.yml
