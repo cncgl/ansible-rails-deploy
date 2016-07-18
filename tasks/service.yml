@@ -3,18 +3,18 @@
   service:
     name={{ project }}
     state=stopped
-  sudo: yes
+  become: yes
   ignore_errors: yes
 
 - name: start rails
   service:
     name={{ project }}
     state=started
-  sudo: yes
+  become: yes
 
 - name: restart nginx
   service:
     name=nginx
     enabled=yes
     state=restarted
-  sudo: yes
+  become: yes

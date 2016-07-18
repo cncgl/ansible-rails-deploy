@@ -1,6 +1,6 @@
 ---
 - name: install rpm packages
-  apt: name={{item}} state=latest
+  apt: name={{item}} state=latest force=yes
   with_items:
     - g++
     - make
@@ -8,30 +8,37 @@
     - zlib1g-dev
     - libssl-dev
     - libreadline-dev
+    - libyaml-0-2
     - libyaml-dev
+    - libxml2
     - libxml2-dev
     - libxslt-dev
     - sqlite3
-    - sqlite3-dev
-    - postgres-dev
-    - redis-dev
-- name: download ruby
-  get_url: >
-    url=http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
-    dest=/tmp/ruby-2.3.1.tar.gz
+    - libsqlite3-dev
+    - imagemagick
+    - libmagick++-dev
+    - postgresql
+    - postgresql-server-dev-9.3
+  become: yes
+  poll: 30
+  async: 600
 - name: decomporess
-  command: >
-    tar xvzf ruby-2.3.1.tar.gz
-    chdir=/tmp/
+  unarchive: >
+    src='http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz'
+    dest=/tmp/
+    copy=no
 - name: configure
   command: >
-    ./configure
+    ./configure --disable-install-rdoc
     chdir=/tmp/ruby-2.3.1/
 - name: make
   command: >
     make
     chdir=/tmp/ruby-2.3.1/
+  poll: 30
+  async: 600
 - name: make install
   command: >
     make install
     chdir=/tmp/ruby-2.3.1/
+  become: yes

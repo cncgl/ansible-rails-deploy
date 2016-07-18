@@ -1,19 +1,19 @@
 ---
-- name: remove nginx default setting
-  command: rm /etc/nginx/sites-enabled/default
-  sudo: yes
-  ignore_errors: yes
-
-- name: copy nginx unicorn setting
-  template:
-    src=../config/nginx.j2
-    dest=/etc/nginx/sites-available/unicorn
-    owner=root
-    group=root
-    mode=0644
-  sudo: yes
-
-- name: link nginx unicorn setting
-  command: ln -s /etc/nginx/sites-available/unicorn /etc/nginx/sites-enabled/unicorn
-  sudo: yes
-  ignore_errors: yes
+#- name: remove nginx default setting
+#  command: rm /etc/nginx/sites-enabled/default
+#  become: yes
+#  ignore_errors: yes
+#
+#- name: copy nginx unicorn setting
+#  template:
+#    src=../config/nginx.j2
+#    dest=/etc/nginx/sites-available/unicorn
+#    owner=root
+#    group=root
+#    mode=0644
+#  become: yes
+#
+#- name: link nginx unicorn setting
+#  command: ln -s /etc/nginx/sites-available/unicorn /etc/nginx/sites-enabled/unicorn
+#  become: yes
+#  ignore_errors: yes
